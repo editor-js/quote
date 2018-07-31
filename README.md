@@ -51,9 +51,25 @@ var editor = CodexEditor({
   
   tools: {
     ...
+    quote: Quote,
+  },
+  
+  ...
+});
+```
+
+Or init Quote Tool with additional settings
+
+```javascript
+var editor = CodexEditor({
+  ...
+  
+  tools: {
+    ...
     quote: {
       class: Quote,
       inlineToolbar: true,
+      shortcut: 'CMD+SHIFT+O',
       config: {
         quotePlaceholder: 'Enter a quote',
         captionPlaceholder: 'Quote\'s author',
