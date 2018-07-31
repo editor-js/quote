@@ -1,13 +1,12 @@
 {
   "name": "codex.editor.quote",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "codex editor",
     "tool",
-    "image",
-    "server-less"
+    "quote"
   ],
-  "description": "SimpleImage Tool for CodeX.Editor",
+  "description": "Quote Tool for CodeX.Editor",
   "license": "MIT",
   "repository": "https://github.com/codex-editor/quote",
   "main": "./dist/bundle.js",
