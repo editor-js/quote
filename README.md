@@ -29,11 +29,9 @@ const Quote = require('codex.editor.quote');
 
 ### Load from CDN
 
-Get newest bundle path from [RawGit](https://rawgit.com) — open site and paste link to JS bundle in repository.
+You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/codex.editor.quote).
 
-`https://github.com/codex-editor/quote/blob/master/dist/bundle.js`
-
-> Note: use `production` link with commit hash to avoid issues with caching.
+`https://cdn.jsdelivr.net/npm/codex.editor.quote@1.0.2`
 
 Then require this script on page with CodeX Editor.
 

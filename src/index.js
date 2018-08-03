@@ -140,13 +140,14 @@ class Quote {
   }
 
   /**
-   * @constructor
+   * Render plugin`s main Element and fill it with saved data
    *
-   * @param {QuoteData} quoteData
-   * @param {QuoteConfig} config
-   * @param api
+   * @param {{data: QuoteData, config: QuoteConfig, api: object}}
+   *   data — previously saved data
+   *   config - user config for Tool
+   *   api - CodeX Editor API
    */
-  constructor(quoteData = {}, config = {}, api) {
+  constructor({data, config, api}) {
     const {ALIGNMENTS, DEFAULT_ALIGNMENT} = Quote;
 
     this.api = api;
@@ -155,9 +156,9 @@ class Quote {
     this.captionPlaceholder = config.captionPlaceholder || Quote.DEFAULT_CAPTION_PLACEHOLDER;
 
     this.data = {
-      quote: quoteData.quote || '',
-      caption: quoteData.caption || '',
-      alignment: Object.values(ALIGNMENTS).includes(quoteData.alignment) && quoteData.alignment ||
+      quote: data.quote || '',
+      caption: data.caption || '',
+      alignment: Object.values(ALIGNMENTS).includes(data.alignment) && data.alignment ||
       config.defaultAlignment ||
       DEFAULT_ALIGNMENT
     };
