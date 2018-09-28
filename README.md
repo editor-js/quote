@@ -96,7 +96,7 @@ You can choose alignment for the quote. It takes no effect while editing, but sa
 
 | Field     | Type     | Description          |
 | --------- | -------- | -------------------- |
-| quote     | `string` | quote's text         |
+| text      | `string` | quote's text         |
 | caption   | `string` | caption or an author |
 | alignment | `string` | `left` or `center`   |
 
@@ -105,7 +105,7 @@ You can choose alignment for the quote. It takes no effect while editing, but sa
 {
     "type" : "quote",
     "data" : {
-        "quote" : "The unexamined life is not worth living.",
+        "text" : "The unexamined life is not worth living.",
         "caption" : "Socrates",
         "alignment" : "left"
     }

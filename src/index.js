@@ -112,7 +112,7 @@ class Quote {
     return {
       baseClass: this.api.styles.block,
       wrapper: 'cdx-quote',
-      quote: 'cdx-quote__text',
+      text: 'cdx-quote__text',
       input: this.api.styles.input,
       caption: 'cdx-quote__caption',
       settingsWrapper: 'cdx-quote-settings',
@@ -156,7 +156,7 @@ class Quote {
     this.captionPlaceholder = config.captionPlaceholder || Quote.DEFAULT_CAPTION_PLACEHOLDER;
 
     this.data = {
-      quote: data.quote || '',
+      text: data.text || '',
       caption: data.caption || '',
       alignment: Object.values(ALIGNMENTS).includes(data.alignment) && data.alignment ||
       config.defaultAlignment ||
@@ -171,9 +171,9 @@ class Quote {
    */
   render() {
     const container = this._make('blockquote', [this.CSS.baseClass, this.CSS.wrapper]);
-    const quote = this._make('div', [this.CSS.input, this.CSS.quote], {
+    const quote = this._make('div', [this.CSS.input, this.CSS.text], {
       contentEditable: true,
-      innerHTML: this.data.quote
+      innerHTML: this.data.text
     });
     const caption = this._make('div', [this.CSS.input, this.CSS.caption], {
       contentEditable: true,
@@ -196,11 +196,11 @@ class Quote {
    * @returns {QuoteData}
    */
   save(quoteElement) {
-    const quote = quoteElement.querySelector(`.${this.CSS.quote}`);
+    const text = quoteElement.querySelector(`.${this.CSS.text}`);
     const caption = quoteElement.querySelector(`.${this.CSS.caption}`);
 
     return Object.assign(this.data, {
-      quote: quote.innerHTML,
+      text: text.innerHTML,
       caption: caption.innerHTML
     });
   }
