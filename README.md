@@ -31,7 +31,7 @@ const Quote = require('codex.editor.quote');
 
 You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/codex.editor.quote).
 
-`https://cdn.jsdelivr.net/npm/codex.editor.quote@1.0.2`
+`https://cdn.jsdelivr.net/npm/codex.editor.quote@1.1.0`
 
 Then require this script on page with CodeX Editor.
 
