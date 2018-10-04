@@ -11,7 +11,7 @@ require('./index.css').toString();
  *
  * @typedef {object} QuoteData
  * @description Quote Tool`s input and output data
- * @property {string} quote - quote`s text
+ * @property {string} text - quote`s text
  * @property {string} caption - quote`s caption
  * @property {'center'|'left'} alignment - quote`s alignment
  *
@@ -203,6 +203,47 @@ class Quote {
       text: text.innerHTML,
       caption: caption.innerHTML
     });
+  }
+
+  /**
+   * Sanitizer rules
+   */
+  get sanitizer() {
+    return {
+      text: {
+        a: {
+          href: true,
+          target: '_blank',
+          rel: 'nofollow'
+        },
+        b: {},
+        i: {},
+        br: true,
+        span: {
+          class: 'inline-code'
+        },
+        mark: {
+          class: 'cdx-marker'
+        }
+      },
+      caption: {
+        a: {
+          href: true,
+          target: '_blank',
+          rel: 'nofollow'
+        },
+        b: {},
+        i: {},
+        br: true,
+        span: {
+          class: 'inline-code'
+        },
+        mark: {
+          class: 'cdx-marker'
+        }
+      },
+      alignment: {}
+    };
   }
 
   /**
