@@ -205,36 +205,10 @@ class Quote {
   get sanitizer() {
     return {
       text: {
-        a: {
-          href: true,
-          target: '_blank',
-          rel: 'nofollow'
-        },
-        b: {},
-        i: {},
         br: true,
-        span: {
-          class: 'inline-code'
-        },
-        mark: {
-          class: 'cdx-marker'
-        }
       },
       caption: {
-        a: {
-          href: true,
-          target: '_blank',
-          rel: 'nofollow'
-        },
-        b: {},
-        i: {},
         br: true,
-        span: {
-          class: 'inline-code'
-        },
-        mark: {
-          class: 'cdx-marker'
-        }
       },
       alignment: {}
     };
