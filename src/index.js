@@ -202,7 +202,7 @@ class Quote {
   /**
    * Sanitizer rules
    */
-  get sanitizer() {
+  static get sanitize() {
     return {
       text: {
         br: true,
