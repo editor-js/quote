@@ -82,9 +82,9 @@ var editor = CodexEditor({
 ## Config Params
 
 | Field              | Type     | Description                 |
-| ------------------ | -------- | --------------------------- |
-| quotePlaceholder   | `string` | header's placeholder string |
-| captionPlaceholder | `string` | header's placeholder string |
+| ------------------ | -------- | ----------------------------|
+| quotePlaceholder   | `string` | quote's placeholder string  |
+| captionPlaceholder | `string` | caption's placeholder string|
 
 ## Tool's settings
 
