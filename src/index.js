@@ -5,9 +5,9 @@ require('./index.css').toString();
 
 /**
  * @class Quote
- * @classdesc Quote Tool for Codex Editor
+ * @classdesc Quote Tool for Editor.js
  * @property {QuoteData} data - Tool`s input and output data
- * @propert {object} api - Codex Editor API instance
+ * @propert {object} api - Editor.js API instance
  *
  * @typedef {object} QuoteData
  * @description Quote Tool`s input and output data
@@ -139,7 +139,7 @@ class Quote {
    * @param {{data: QuoteData, config: QuoteConfig, api: object}}
    *   data — previously saved data
    *   config - user config for Tool
-   *   api - CodeX Editor API
+   *   api - Editor.js API
    */
   constructor({data, config, api}) {
     const {ALIGNMENTS, DEFAULT_ALIGNMENT} = Quote;

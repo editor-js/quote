@@ -1,8 +1,8 @@
-![](https://badgen.net/badge/CodeX%20Editor/v2.0/blue)
+![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
 # Quote Tool
 
-Provides Quote Blocks for the [CodeX Editor](https://ifmo.su/editor).
+Provides Quote Blocks for the [Editor.js](https://ifmo.su/editor).
 
 ![](https://capella.pics/017dca46-6869-40cb-93a0-994416576e33.jpg)
 
@@ -13,13 +13,13 @@ Provides Quote Blocks for the [CodeX Editor](https://ifmo.su/editor).
 Get the package
 
 ```shell
-npm i --save-dev codex.editor.quote
+npm i --save-dev @editorjs/quote
 ```
 
 Include module at your application
 
 ```javascript
-const Quote = require('codex.editor.quote');
+const Quote = require('@editorjs/quote');
 ```
 
 ### Download to your project's source dir
@@ -29,11 +29,11 @@ const Quote = require('codex.editor.quote');
 
 ### Load from CDN
 
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/codex.editor.quote).
+You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/quote).
 
-`https://cdn.jsdelivr.net/npm/codex.editor.quote@2.0.0`
+`https://cdn.jsdelivr.net/npm/@editorjs/quote@2.0.0`
 
-Then require this script on page with CodeX Editor.
+Then require this script on page with Editor.js.
 
 ```html
 <script src="..."></script>
@@ -41,10 +41,10 @@ Then require this script on page with CodeX Editor.
 
 ## Usage
 
-Add a new Tool to the `tools` property of the CodeX Editor initial config.
+Add a new Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
-var editor = CodexEditor({
+var editor = EditorJS({
   ...
   
   tools: {
@@ -59,7 +59,7 @@ var editor = CodexEditor({
 Or init Quote Tool with additional settings
 
 ```javascript
-var editor = CodexEditor({
+var editor = EditorJS({
   ...
   
   tools: {
