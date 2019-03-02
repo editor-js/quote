@@ -2,7 +2,7 @@
 
 # Quote Tool
 
-Provides Quote Blocks for the [Editor.js](https://ifmo.su/editor).
+Provides Quote Blocks for the [Editor.js](https://editorjs.io).
 
 ![](https://capella.pics/017dca46-6869-40cb-93a0-994416576e33.jpg)
 
