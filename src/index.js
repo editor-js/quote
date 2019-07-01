@@ -98,6 +98,26 @@ class Quote {
   }
 
   /**
+   * Allow Quote to be converted to/from other blocks
+   */
+  static get conversionConfig(){
+    return {
+      /**
+       * To create Quote data from string, simple fill 'text' property
+       */
+      import: 'text',
+      /**
+       * To create string from Quote data, concatenate text and caption
+       * @param {QuoteData} quoteData
+       * @return {string}
+       */
+      export: function (quoteData) {
+        return quoteData.caption ? `${quoteData.text} — ${quoteData.caption}` : quoteData.text;
+      }
+    };
+  }
+
+  /**
    * Tool`s styles
    *
    * @returns {{baseClass: string, wrapper: string, quote: string, input: string, caption: string, settingsButton: string, settingsButtonActive: string}}
