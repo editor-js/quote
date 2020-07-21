@@ -31,7 +31,7 @@ const Quote = require('@editorjs/quote');
 
 You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/quote).
 
-`https://cdn.jsdelivr.net/npm/@editorjs/quote@2.0.0`
+`https://cdn.jsdelivr.net/npm/@editorjs/quote@latest`
 
 Then require this script on page with Editor.js.
 
