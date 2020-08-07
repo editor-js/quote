@@ -6,12 +6,27 @@
   margin: 0;
 }
 
-.cdx-quote__text {
-  min-height: 158px;
-  margin-bottom: 10px;
+.cdx-quote .cdx-input[data-placeholder]::before {
+  position: absolute !important;
 }
 
-.cdx-quote__caption {}
+.cdx-quote__text {
+  margin-bottom: 10px;
+  border: none;
+  border-left: 1px solid #517b9f;
+  box-shadow: none;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.cdx-quote__caption {
+  border: none;
+  border-left: 1px solid #517b9f;
+  box-shadow: none;
+  border-radius: 0;
+  color: #3E58FB;
+  border-top: 1px solid #00000017;
+}
 
 .cdx-quote [contentEditable=true][data-placeholder]::before{
   position: absolute;

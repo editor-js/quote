@@ -191,6 +191,10 @@ class Quote {
     });
     const caption = this._make('div', [this.CSS.input, this.CSS.caption], {
       contentEditable: true,
+      spellcheck: false,
+      autocomplete: "off",
+      autocorrect: "off",
+      autocapitalize: "off",
       innerHTML: this.data.caption
     });
 
