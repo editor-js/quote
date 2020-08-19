@@ -1,4 +1,4 @@
-![](https://badgen.net/badge/@Editorjs-quote/v2.0/blue)   [![](https://data.jsdelivr.com/v1/package/npm/@itech-indrustries/quote/badge)](https://www.jsdelivr.com/package/npm/@itech-indrustries/quote)
+![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
 # Quote Tool
 
@@ -13,13 +13,13 @@ Provides Quote Blocks for the [Editor.js](https://editorjs.io).
 Get the package
 
 ```shell
-npm i @itech-indrustries/quote
+npm i --save-dev @editorjs/quote
 ```
 
 Include module at your application
 
 ```javascript
-const Quote = require('@itech-indrustries/quote');
+const Quote = require('@editorjs/quote');
 ```
 
 ### Download to your project's source dir
@@ -29,14 +29,14 @@ const Quote = require('@itech-indrustries/quote');
 
 ### Load from CDN
 
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@itech-indrustries/quote).
+You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/quote).
 
-`https://cdn.jsdelivr.net/npm/@itech-indrustries/quote@latest`
+`https://cdn.jsdelivr.net/npm/@editorjs/quote@latest`
 
 Then require this script on page with Editor.js.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@itech-indrustries/quote@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
 ```
 
 ## Usage
