@@ -4,7 +4,7 @@
 
 Provides Quote Blocks for the [Editor.js](https://editorjs.io).
 
-![](https://capella.pics/017dca46-6869-40cb-93a0-994416576e33.jpg)
+![Screenshot from 2020-08-07 13-59-58](https://user-images.githubusercontent.com/55910733/89626003-5a5e5300-d8b6-11ea-8e55-866de73e1911.png)
 
 ## Installation
 
@@ -31,12 +31,12 @@ const Quote = require('@editorjs/quote');
 
 You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/quote).
 
-`https://cdn.jsdelivr.net/npm/@editorjs/quote@2.0.0`
+`https://cdn.jsdelivr.net/npm/@editorjs/quote@latest`
 
 Then require this script on page with Editor.js.
 
 ```html
-<script src="..."></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
 ```
 
 ## Usage
