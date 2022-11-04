@@ -1,7 +1,10 @@
 /**
  * Build styles
  */
-require('./index.css').toString();
+import './index.css';
+
+import IconAlignmentLeft from '../assets/alignment_left.svg';
+import IconAlignmentCenter from '../assets/alignment_center.svg';
 
 /**
  * @class Quote
@@ -20,8 +23,15 @@ require('./index.css').toString();
  * @property {string} quotePlaceholder - placeholder to show in quote`s text input
  * @property {string} captionPlaceholder - placeholder to show in quote`s caption input
  * @property {'center'|'left'} defaultAlignment - alignment to use as default
+ *
+ * @typedef {object} TunesMenuConfig
+ * @property {string} icon - menu item icon
+ * @property {string} label - menu item label
+ * @property {boolean} isActive - true if item should be in active state
+ * @property {boolean} closeOnActivate - if true tunes menu should close once any item is selected
+ * @property {() => void} onActivate - item activation callback
  */
-class Quote {
+export default class Quote {
   /**
    * Notify core that read-only mode is supported
    *
@@ -156,11 +166,11 @@ class Quote {
     return [
       {
         name: 'left',
-        icon: `<svg width="16" height="11" viewBox="0 0 16 11" xmlns="http://www.w3.org/2000/svg" ><path d="M1.069 0H13.33a1.069 1.069 0 0 1 0 2.138H1.07a1.069 1.069 0 1 1 0-2.138zm0 4.275H9.03a1.069 1.069 0 1 1 0 2.137H1.07a1.069 1.069 0 1 1 0-2.137zm0 4.275h9.812a1.069 1.069 0 0 1 0 2.137H1.07a1.069 1.069 0 0 1 0-2.137z" /></svg>`,
+        icon: IconAlignmentLeft,
       },
       {
         name: 'center',
-        icon: `<svg width="16" height="11" viewBox="0 0 16 11" xmlns="http://www.w3.org/2000/svg" ><path d="M1.069 0H13.33a1.069 1.069 0 0 1 0 2.138H1.07a1.069 1.069 0 1 1 0-2.138zm3.15 4.275h5.962a1.069 1.069 0 0 1 0 2.137H4.22a1.069 1.069 0 1 1 0-2.137zM1.069 8.55H13.33a1.069 1.069 0 0 1 0 2.137H1.07a1.069 1.069 0 0 1 0-2.137z"/></svg>`,
+        icon: IconAlignmentCenter,
       },
     ];
   }
@@ -174,7 +184,7 @@ class Quote {
    *   api - Editor.js API
    *   readOnly - read-only mode flag
    */
-  constructor({ data, config, api, readOnly}) {
+  constructor({ data, config, api, readOnly }) {
     const { ALIGNMENTS, DEFAULT_ALIGNMENT } = Quote;
 
     this.api = api;
@@ -253,38 +263,19 @@ class Quote {
    * 1. Left alignment
    * 2. Center alignment
    *
-   * @returns {HTMLDivElement}
+   * @returns {TunesMenuConfig}
+   *
    */
   renderSettings() {
-    const wrapper = this._make('div', [ this.CSS.settingsWrapper ], {});
     const capitalize = str => str[0].toUpperCase() + str.substr(1);
 
-    this.settings
-      .map(tune => {
-        const el = this._make('div', this.CSS.settingsButton, {
-          innerHTML: tune.icon,
-          title: `${capitalize(tune.name)} alignment`,
-        });
-
-        el.classList.toggle(this.CSS.settingsButtonActive, tune.name === this.data.alignment);
-
-        wrapper.appendChild(el);
-
-        return el;
-      })
-      .forEach((element, index, elements) => {
-        element.addEventListener('click', () => {
-          this._toggleTune(this.settings[index].name);
-
-          elements.forEach((el, i) => {
-            const { name } = this.settings[i];
-
-            el.classList.toggle(this.CSS.settingsButtonActive, name === this.data.alignment);
-          });
-        });
-      });
-
-    return wrapper;
+    return this.settings.map(item => ({
+      icon: item.icon,
+      label: `${capitalize(item.name)} alignment`,
+      onActivate: () => this._toggleTune(item.name),
+      isActive: this.data.alignment === item.name,
+      closeOnActivate: true,
+    }));
   };
 
   /**
@@ -321,5 +312,3 @@ class Quote {
     return el;
   }
 }
-
-module.exports = Quote;
