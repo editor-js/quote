@@ -271,7 +271,7 @@ export default class Quote {
 
     return this.settings.map(item => ({
       icon: item.icon,
-      label: `${capitalize(item.name)} alignment`,
+      label: this.api.i18n.t(`${capitalize(item.name)} alignment`),
       onActivate: () => this._toggleTune(item.name),
       isActive: this.data.alignment === item.name,
       closeOnActivate: true,
