@@ -142,7 +142,7 @@ export default class Quote {
   /**
    * Tool`s styles
    *
-   * @returns {{baseClass: string, wrapper: string, quote: string, input: string, caption: string, settingsButton: string, settingsButtonActive: string}}
+   * @returns {{baseClass: string, wrapper: string, quote: string, input: string, caption: string}}
    */
   get CSS() {
     return {
@@ -151,9 +151,6 @@ export default class Quote {
       text: 'cdx-quote__text',
       input: this.api.styles.input,
       caption: 'cdx-quote__caption',
-      settingsWrapper: 'cdx-quote-settings',
-      settingsButton: this.api.styles.settingsButton,
-      settingsButtonActive: this.api.styles.settingsButtonActive,
     };
   }
 
