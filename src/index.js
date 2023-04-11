@@ -143,13 +143,14 @@ export default class Quote {
   /**
    * Tool`s styles
    *
-   * @returns {{baseClass: string, wrapper: string, quote: string, input: string, caption: string}}
+   * @returns {{baseClass: string, wrapper: string, text: string, textTune: string, input: string, caption: string}}
    */
   get CSS() {
     return {
       baseClass: this.api.styles.block,
       wrapper: 'cdx-quote',
       text: 'cdx-quote__text',
+      textTune: 'cdx-quote__text--' + this.data.alignment,
       input: this.api.styles.input,
       caption: 'cdx-quote__caption',
     };
@@ -216,7 +217,7 @@ export default class Quote {
    */
   render() {
     const container = this._make('blockquote', [this.CSS.baseClass, this.CSS.wrapper]);
-    const quote = this._make('div', [this.CSS.input, this.CSS.text], {
+    const quote = this._make('div', [this.CSS.input, this.CSS.text, this.CSS.textTune], {
       contentEditable: !this.readOnly,
       innerHTML: this.data.text,
     });
@@ -292,7 +293,12 @@ export default class Quote {
    * @private
    */
   _toggleTune(tune) {
+    const text = this.blockAPI.holder.querySelector(`.${this.CSS.text}`);
+    text.classList.remove(this.CSS.textTune)
+
     this.data.alignment = tune;
+
+    text.classList.add(this.CSS.textTune)
 
     // Tell Editor to know that block was changed
     this.blockAPI.dispatchChange()
