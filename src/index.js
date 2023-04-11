@@ -3,7 +3,7 @@
  */
 import './index.css';
 
-import { IconAlignLeft, IconAlignCenter, IconQuote } from '@codexteam/icons';
+import {IconAlignLeft, IconAlignCenter, IconQuote, IconAlignJustify, IconAlignRight} from '@codexteam/icons';
 
 /**
  * @class Quote
@@ -15,13 +15,13 @@ import { IconAlignLeft, IconAlignCenter, IconQuote } from '@codexteam/icons';
  * @description Quote Tool`s input and output data
  * @property {string} text - quote`s text
  * @property {string} caption - quote`s caption
- * @property {'center'|'left'} alignment - quote`s alignment
+ * @property {'center'|'left'|'right'|'justify'} alignment - quote`s alignment
  *
  * @typedef {object} QuoteConfig
  * @description Quote Tool`s initial configuration
  * @property {string} quotePlaceholder - placeholder to show in quote`s text input
  * @property {string} captionPlaceholder - placeholder to show in quote`s caption input
- * @property {'center'|'left'} defaultAlignment - alignment to use as default
+ * @property {'center'|'left'|'right'|'justify'} defaultAlignment - alignment to use as default
  *
  * @typedef {object} TunesMenuConfig
  * @property {string} icon - menu item icon
@@ -98,12 +98,14 @@ export default class Quote {
    * Allowed quote alignments
    *
    * @public
-   * @returns {{left: string, center: string}}
+   * @returns {{left: string, center: string, right: string, justify: string}}
    */
   static get ALIGNMENTS() {
     return {
       left: 'left',
       center: 'center',
+      right: 'right',
+      justify: 'justify',
     };
   }
 
@@ -167,6 +169,14 @@ export default class Quote {
       {
         name: 'center',
         icon: IconAlignCenter,
+      },
+      {
+        name: 'right',
+        icon: IconAlignRight,
+      },
+      {
+        name: 'justify',
+        icon: IconAlignJustify,
       },
     ];
   }
