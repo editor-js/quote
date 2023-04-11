@@ -180,10 +180,11 @@ export default class Quote {
    *   api - Editor.js API
    *   readOnly - read-only mode flag
    */
-  constructor({ data, config, api, readOnly }) {
+  constructor({ data, config, api, readOnly, block }) {
     const { ALIGNMENTS, DEFAULT_ALIGNMENT } = Quote;
 
     this.api = api;
+    this.blockAPI = block;
     this.readOnly = readOnly;
 
     this.quotePlaceholder = config.quotePlaceholder || Quote.DEFAULT_QUOTE_PLACEHOLDER;
@@ -282,6 +283,9 @@ export default class Quote {
    */
   _toggleTune(tune) {
     this.data.alignment = tune;
+
+    // Tell Editor to know that block was changed
+    this.blockAPI.dispatchChange()
   }
 
   /**
