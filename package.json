@@ -1,9 +1,8 @@
 {
   "name": "@editorjs/quote",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "keywords": [
     "codex editor",
-    "tool",
     "quote",
     "editor.js",
     "editorjs"
