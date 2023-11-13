@@ -21,6 +21,10 @@ Include module at your application
 ```javascript
 const Quote = require('@editorjs/quote');
 ```
+OR
+```javascript
+import Quote from "@editorjs/quote";
+```
 
 ### Download to your project's source dir
 
