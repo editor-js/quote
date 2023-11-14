@@ -8,36 +8,19 @@ Provides Quote Blocks for the [Editor.js](https://editorjs.io).
 
 ## Installation
 
-### Install via NPM
-
 Get the package
 
 ```shell
-npm i --save-dev @editorjs/quote
+yarn add @editorjs/quote
 ```
 
 Include module at your application
 
 ```javascript
-const Quote = require('@editorjs/quote');
+import Quote from '@editorjs/quote';
 ```
 
-### Download to your project's source dir
-
-1. Upload folder `dist` from repository
-2. Add `dist/bundle.js` file to your page.
-
-### Load from CDN
-
-You can load specific version of package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/quote).
-
-`https://cdn.jsdelivr.net/npm/@editorjs/quote@latest`
-
-Then require this script on page with Editor.js.
-
-```html
-<script src="..."></script>
-```
+Optionally, you can load this tool from CDN [JsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/quote).
 
 ## Usage
 
