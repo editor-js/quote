@@ -11,6 +11,22 @@
   margin-bottom: 10px;
 }
 
+.cdx-quote__text--left {
+  text-align: left;
+}
+
+.cdx-quote__text--center {
+  text-align: center;
+}
+
+.cdx-quote__text--right {
+  text-align: right;
+}
+
+.cdx-quote__text--justify {
+  text-align: justify;
+}
+
 .cdx-quote__caption {}
 
 .cdx-quote [contentEditable=true][data-placeholder]::before{

@@ -3,7 +3,7 @@
  */
 import './index.css';
 
-import { IconAlignLeft, IconAlignCenter, IconQuote } from '@codexteam/icons';
+import {IconAlignLeft, IconAlignCenter, IconQuote, IconAlignJustify, IconAlignRight} from '@codexteam/icons';
 
 /**
  * @class Quote
@@ -15,13 +15,13 @@ import { IconAlignLeft, IconAlignCenter, IconQuote } from '@codexteam/icons';
  * @description Quote Tool`s input and output data
  * @property {string} text - quote`s text
  * @property {string} caption - quote`s caption
- * @property {'center'|'left'} alignment - quote`s alignment
+ * @property {'center'|'left'|'right'|'justify'} alignment - quote`s alignment
  *
  * @typedef {object} QuoteConfig
  * @description Quote Tool`s initial configuration
  * @property {string} quotePlaceholder - placeholder to show in quote`s text input
  * @property {string} captionPlaceholder - placeholder to show in quote`s caption input
- * @property {'center'|'left'} defaultAlignment - alignment to use as default
+ * @property {'center'|'left'|'right'|'justify'} defaultAlignment - alignment to use as default
  *
  * @typedef {object} TunesMenuConfig
  * @property {string} icon - menu item icon
@@ -98,12 +98,14 @@ export default class Quote {
    * Allowed quote alignments
    *
    * @public
-   * @returns {{left: string, center: string}}
+   * @returns {{left: string, center: string, right: string, justify: string}}
    */
   static get ALIGNMENTS() {
     return {
       left: 'left',
       center: 'center',
+      right: 'right',
+      justify: 'justify',
     };
   }
 
@@ -141,13 +143,14 @@ export default class Quote {
   /**
    * Tool`s styles
    *
-   * @returns {{baseClass: string, wrapper: string, quote: string, input: string, caption: string}}
+   * @returns {{baseClass: string, wrapper: string, text: string, textTune: string, input: string, caption: string}}
    */
   get CSS() {
     return {
       baseClass: this.api.styles.block,
       wrapper: 'cdx-quote',
       text: 'cdx-quote__text',
+      textTune: 'cdx-quote__text--' + this.data.alignment,
       input: this.api.styles.input,
       caption: 'cdx-quote__caption',
     };
@@ -168,6 +171,14 @@ export default class Quote {
         name: 'center',
         icon: IconAlignCenter,
       },
+      {
+        name: 'right',
+        icon: IconAlignRight,
+      },
+      {
+        name: 'justify',
+        icon: IconAlignJustify,
+      },
     ];
   }
 
@@ -180,10 +191,11 @@ export default class Quote {
    *   api - Editor.js API
    *   readOnly - read-only mode flag
    */
-  constructor({ data, config, api, readOnly }) {
+  constructor({ data, config, api, readOnly, block }) {
     const { ALIGNMENTS, DEFAULT_ALIGNMENT } = Quote;
 
     this.api = api;
+    this.blockAPI = block;
     this.readOnly = readOnly;
 
     this.quotePlaceholder = config.quotePlaceholder || Quote.DEFAULT_QUOTE_PLACEHOLDER;
@@ -205,7 +217,7 @@ export default class Quote {
    */
   render() {
     const container = this._make('blockquote', [this.CSS.baseClass, this.CSS.wrapper]);
-    const quote = this._make('div', [this.CSS.input, this.CSS.text], {
+    const quote = this._make('div', [this.CSS.input, this.CSS.text, this.CSS.textTune], {
       contentEditable: !this.readOnly,
       innerHTML: this.data.text,
     });
@@ -281,7 +293,15 @@ export default class Quote {
    * @private
    */
   _toggleTune(tune) {
+    const text = this.blockAPI.holder.querySelector(`.${this.CSS.text}`);
+    text.classList.remove(this.CSS.textTune)
+
     this.data.alignment = tune;
+
+    text.classList.add(this.CSS.textTune)
+
+    // Tell Editor to know that block was changed
+    this.blockAPI.dispatchChange()
   }
 
   /**

@@ -77,11 +77,11 @@ You can choose alignment for the quote. It takes no effect while editing, but sa
 
 ## Output data
 
-| Field     | Type     | Description          |
-| --------- | -------- | -------------------- |
-| text      | `string` | quote's text         |
-| caption   | `string` | caption or an author |
-| alignment | `string` | `left` or `center`   |
+| Field     | Type     | Description                          |
+| --------- | -------- |--------------------------------------|
+| text      | `string` | quote's text                         |
+| caption   | `string` | caption or an author                 |
+| alignment | `string` | `left`, `right`, `center`, `justify` |
 
 
 ```json
