@@ -30,10 +30,12 @@
     "email": "team@codex.so"
   },
   "devDependencies": {
+    "typescript": "^5.4.5",
     "vite": "^4.5.0",
     "vite-plugin-css-injected-by-js": "^3.3.0"
   },
   "dependencies": {
-    "@codexteam/icons": "^0.0.5"
+    "@codexteam/icons": "^0.0.5",
+    "@editorjs/quote": "^2.6.0"
   }
 }
