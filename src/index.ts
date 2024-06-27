@@ -1,5 +1,3 @@
-// index.ts
-
 import "./index.css";
 import { IconAlignLeft, IconAlignCenter, IconQuote } from "@codexteam/icons";
 import { QuoteData, QuoteConfig, TunesMenuConfig } from "./types";
@@ -24,7 +22,7 @@ export default class Quote {
       text: data.text || "",
       caption: data.caption || "",
       alignment: Object.values(ALIGNMENTS).includes(data.alignment) ? data.alignment : config.defaultAlignment || DEFAULT_ALIGNMENT,
-    };
+    } as QuoteData;
   }
 
   static get isReadOnlySupported(): boolean {
@@ -98,15 +96,15 @@ export default class Quote {
   }
 
   render(): HTMLElement {
-    const container = this._make("blockquote", [this.CSS.baseClass, this.CSS.wrapper]) as HTMLElement;
+    const container = this._make("blockquote", [this.CSS.baseClass, this.CSS.wrapper]);
     const quote = this._make("div", [this.CSS.input, this.CSS.text], {
-      contentEditable: !this.readOnly,
+      contentEditable: (!this.readOnly).toString(),
       innerHTML: this.data.text,
-    }) as HTMLElement;
+    });
     const caption = this._make("div", [this.CSS.input, this.CSS.caption], {
-      contentEditable: !this.readOnly,
+      contentEditable: (!this.readOnly).toString(),
       innerHTML: this.data.caption,
-    }) as HTMLElement;
+    });
 
     quote.dataset.placeholder = this.quotePlaceholder;
     caption.dataset.placeholder = this.captionPlaceholder;
@@ -145,18 +143,18 @@ export default class Quote {
     return this.settings.map((item) => ({
       icon: item.icon,
       label: this.api.i18n.t(`Align ${capitalize(item.name)}`),
-      onActivate: () => this._toggleTune(item.name),
+      onActivate: () => this._toggleTune(item.name as "center" | "left"),
       isActive: this.data.alignment === item.name,
       closeOnActivate: true,
     }));
   }
 
-  private _toggleTune(tune: string) {
+  private _toggleTune(tune: "center" | "left") {
     this.data.alignment = tune;
   }
 
-  private _make(tagName: string, classNames: string[] | string | null = null, attributes: { [key: string]: any } = {}): HTMLElement {
-    const el = document.createElement(tagName);
+  private _make<K extends keyof HTMLElementTagNameMap>(tagName: K, classNames: string | string[] = [], attributes: { [key: string]: string } = {}): HTMLElementTagNameMap[K] {
+    const el = document.createElement(tagName) as HTMLElementTagNameMap[K];
 
     if (Array.isArray(classNames)) {
       el.classList.add(...classNames);
@@ -165,7 +163,7 @@ export default class Quote {
     }
 
     for (const attrName in attributes) {
-      el[attrName] = attributes[attrName];
+      (el as any)[attrName] = attributes[attrName];
     }
 
     return el;

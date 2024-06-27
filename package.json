@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@codexteam/icons": "^0.0.5",
+    "@editorjs/editorjs": "^2.29.1",
     "@editorjs/quote": "^2.6.0"
   }
 }
