@@ -6,7 +6,10 @@ import "./index.css";
 import { IconAlignLeft, IconAlignCenter, IconQuote } from "@codexteam/icons";
 import { make } from "@editorjs/dom";
 import type { API, BlockTool, ToolConfig } from "@editorjs/editorjs";
+<<<<<<< HEAD
 import { MenuConfig } from "@editorjs/editorjs/types/tools";
+=======
+>>>>>>> faa3ad31193397400569000b10b0abdeb8d16f92
 
 /**
  * @typedef {object} QuoteConfig
