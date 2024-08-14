@@ -1,6 +1,6 @@
 {
   "name": "@editorjs/quote",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "keywords": [
     "codex editor",
     "quote",
@@ -21,17 +21,22 @@
       "require": "./dist/quote.umd.js"
     }
   },
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "author": {
     "name": "CodeX",
     "email": "team@codex.so"
   },
   "devDependencies": {
+    "@editorjs/editorjs": "^2.29.1",
+    "typescript": "^5.4.5",
     "vite": "^4.5.0",
-    "vite-plugin-css-injected-by-js": "^3.3.0"
+    "vite-plugin-css-injected-by-js": "^3.3.0",
+    "vite-plugin-dts": "^3.9.1"
   },
   "dependencies": {
     "@codexteam/icons": "^0.0.5"
