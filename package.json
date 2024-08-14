@@ -1,6 +1,6 @@
 {
   "name": "@editorjs/quote",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "keywords": [
     "codex editor",
     "quote",
@@ -18,7 +18,8 @@
   "exports": {
     ".": {
       "import": "./dist/quote.mjs",
-      "require": "./dist/quote.umd.js"
+      "require": "./dist/quote.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "types": "./dist/index.d.ts",
@@ -36,9 +37,10 @@
     "typescript": "^5.4.5",
     "vite": "^4.5.0",
     "vite-plugin-css-injected-by-js": "^3.3.0",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^3.9.1",
+    "@editorjs/dom": "^0.0.1"
   },
   "dependencies": {
-    "@codexteam/icons": "^0.0.5"
+    "@codexteam/icons": "^0.3.2"
   }
 }

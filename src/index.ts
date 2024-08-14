@@ -4,7 +4,9 @@
 import "./index.css";
 
 import { IconAlignLeft, IconAlignCenter, IconQuote } from "@codexteam/icons";
-import type { API, ToolConfig } from "@editorjs/editorjs";
+import { make } from "@editorjs/dom";
+import type { API, BlockTool, ToolConfig } from "@editorjs/editorjs";
+import { MenuConfig } from "@editorjs/editorjs/types/tools";
 
 /**
  * @typedef {object} QuoteConfig
@@ -27,7 +29,7 @@ export interface QuoteConfig extends ToolConfig {
   /**
    * Default alignment for the quote.
    */
-  defaultAlignment: "center" | "left";
+  defaultAlignment: Alignment;
 }
 
 /**
@@ -51,42 +53,7 @@ export interface QuoteData {
   /**
    * The alignment of the quote.
    */
-  alignment: "center" | "left";
-}
-
-/**
- * @typedef {object} TunesMenuConfig
- * @property {string} icon - menu item icon
- * @property {string} label - menu item label
- * @property {boolean} isActive - true if item should be in active state
- * @property {boolean} closeOnActivate - if true tunes menu should close once any item is selected
- * @property {() => void} onActivate - item activation callback
- */
-interface TunesMenuConfig {
-  /**
-   * Icon for the menu item.
-   */
-  icon: string;
-
-  /**
-   * Label for the menu item.
-   */
-  label: string;
-
-  /**
-   * Indicates if the item should be in an active state.
-   */
-  isActive: boolean;
-
-  /**
-   * Determines if the tunes menu should close after an item is selected.
-   */
-  closeOnActivate: boolean;
-
-  /**
-   * Callback function to be called when the item is activated.
-   */
-  onActivate: () => void;
+  alignment: Alignment;
 }
 
 /**
@@ -146,12 +113,21 @@ interface QuoteCSS {
 }
 
 /**
+ * @typedef {Enum} Alignment
+ * @description Enum for Quote Alignment
+ */
+enum Alignment {
+  left = "left",
+  center = "center",
+}
+
+/**
  * @class Quote
  * @classdesc Quote Tool for Editor.js
  * @property {QuoteData} data - Tool`s input and output data
  * @propert {API} api - Editor.js API instance
  */
-export default class Quote {
+export default class Quote implements BlockTool {
   /**
    * The Editor.js API
    */
@@ -160,6 +136,7 @@ export default class Quote {
    * Is Quote Tool read-only
    */
   readOnly: boolean;
+
   /**
    * Placeholder for Quote Tool
    */
@@ -282,12 +259,12 @@ export default class Quote {
    * Allowed quote alignments
    *
    * @public
-   * @returns {{left: string, center: string}}
+   * @returns {Record<string, Alignment> }
    */
-  static get ALIGNMENTS(): { left: "left"; center: "center" } {
+  static get ALIGNMENTS(): Record<string, Alignment> {
     return {
-      left: "left",
-      center: "center",
+      left: Alignment.left,
+      center: Alignment.center,
     };
   }
 
@@ -297,7 +274,7 @@ export default class Quote {
    * @public
    * @returns {string}
    */
-  static get DEFAULT_ALIGNMENT(): "left" {
+  static get DEFAULT_ALIGNMENT(): Alignment {
     return Quote.ALIGNMENTS.left;
   }
 
@@ -344,14 +321,14 @@ export default class Quote {
    *
    * @returns {*[]}
    */
-  get settings(): { name: "left" | "center"; icon: string }[] {
+  get settings(): { name: Alignment; icon: string }[] {
     return [
       {
-        name: "left",
+        name: Alignment.left,
         icon: IconAlignLeft,
       },
       {
-        name: "center",
+        name: Alignment.center,
         icon: IconAlignCenter,
       },
     ];
@@ -363,15 +340,15 @@ export default class Quote {
    * @returns {Element}
    */
   render(): HTMLElement {
-    const container = this._make("blockquote", [
+    const container = make("blockquote", [
       this._CSS.baseClass,
       this._CSS.wrapper,
     ]);
-    const quote = this._make("div", [this._CSS.input, this._CSS.text], {
+    const quote = make("div", [this._CSS.input, this._CSS.text], {
       contentEditable: !this.readOnly,
       innerHTML: this._data.text,
     });
-    const caption = this._make("div", [this._CSS.input, this._CSS.caption], {
+    const caption = make("div", [this._CSS.input, this._CSS.caption], {
       contentEditable: !this.readOnly,
       innerHTML: this._data.caption,
     });
@@ -421,10 +398,10 @@ export default class Quote {
    * 1. Left alignment
    * 2. Center alignment
    *
-   * @returns {TunesMenuConfig}
+   * @returns {MenuConfig}
    *
    */
-  renderSettings(): TunesMenuConfig[] {
+  renderSettings(): HTMLElement | MenuConfig {
     const capitalize = (str: string) =>
       str ? str[0].toUpperCase() + str.slice(1) : str;
 
@@ -443,35 +420,7 @@ export default class Quote {
    * @param {string} tune - alignment
    * @private
    */
-  _toggleTune(tune: "left" | "center") {
+  _toggleTune(tune: Alignment) {
     this._data.alignment = tune;
-  }
-
-  /**
-   * Helper for making Elements with attributes
-   *
-   * @param  {string} tagName           - new Element tag name
-   * @param  {Array|string} classNames  - list or name of CSS classname(s)
-   * @param  {object} attributes        - any attributes
-   * @returns {Element}
-   */
-  _make(
-    tagName: string,
-    classNames: string | string[] | null = null,
-    attributes: { [key: string]: any } = {}
-  ): HTMLElement {
-    const el = document.createElement(tagName);
-
-    if (Array.isArray(classNames)) {
-      el.classList.add(...classNames);
-    } else if (classNames) {
-      el.classList.add(classNames);
-    }
-
-    for (const attrName in attributes) {
-      (el as any)[attrName] = attributes[attrName];
-    }
-
-    return el;
   }
 }
