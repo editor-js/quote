@@ -29,7 +29,7 @@ export interface QuoteConfig extends ToolConfig {
   /**
    * Default alignment for the quote.
    */
-  defaultAlignment: ALIGNMENT;
+  defaultAlignment: Alignment;
 }
 
 /**
@@ -53,7 +53,7 @@ export interface QuoteData {
   /**
    * The alignment of the quote.
    */
-  alignment: ALIGNMENT;
+  alignment: Alignment;
 }
 
 /**
@@ -113,12 +113,12 @@ interface QuoteCSS {
 }
 
 /**
- * @typedef {Enum} ALIGNMENT
+ * @typedef {Enum} Alignment
  * @description Enum for Quote Alignment
  */
-enum ALIGNMENT {
-  left = "left",
-  center = "center",
+enum Alignment {
+  Left = "left",
+  Center = "center",
 }
 
 /**
@@ -164,7 +164,7 @@ export default class Quote implements BlockTool {
    * @param {boolean} params.readOnly - read only mode flag
    */
   constructor({ data, config, api, readOnly }: QuoteParams) {
-    const { ALIGNMENTS, DEFAULT_ALIGNMENT } = Quote;
+    const { DEFAULT_ALIGNMENT } = Quote;
 
     this.api = api;
     this.readOnly = readOnly;
@@ -178,7 +178,7 @@ export default class Quote implements BlockTool {
       text: data.text || "",
       caption: data.caption || "",
       alignment:
-        (Object.values(ALIGNMENTS).includes(data.alignment) &&
+        (Object.values(Alignment).includes(data.alignment as Alignment) &&
           data.alignment) ||
         config.defaultAlignment ||
         DEFAULT_ALIGNMENT,
@@ -255,18 +255,6 @@ export default class Quote implements BlockTool {
     return "Enter a caption";
   }
 
-  /**
-   * Allowed quote alignments
-   *
-   * @public
-   * @returns {Record<string, ALIGNMENT> }
-   */
-  static get ALIGNMENTS(): Record<string, ALIGNMENT> {
-    return {
-      left: ALIGNMENT.left,
-      center: ALIGNMENT.center,
-    };
-  }
 
   /**
    * Default quote alignment
@@ -274,8 +262,8 @@ export default class Quote implements BlockTool {
    * @public
    * @returns {string}
    */
-  static get DEFAULT_ALIGNMENT(): ALIGNMENT {
-    return Quote.ALIGNMENTS.left;
+  static get DEFAULT_ALIGNMENT(): Alignment {
+    return Alignment.Left;
   }
 
   /**
@@ -321,14 +309,14 @@ export default class Quote implements BlockTool {
    *
    * @returns {*[]}
    */
-  get settings(): { name: ALIGNMENT; icon: string }[] {
+  get settings(): { name: Alignment; icon: string }[] {
     return [
       {
-        name: ALIGNMENT.left,
+        name: Alignment.Left,
         icon: IconAlignLeft,
       },
       {
-        name: ALIGNMENT.center,
+        name: Alignment.Center,
         icon: IconAlignCenter,
       },
     ];
@@ -420,7 +408,7 @@ export default class Quote implements BlockTool {
    * @param {string} tune - alignment
    * @private
    */
-  _toggleTune(tune: ALIGNMENT) {
+  _toggleTune(tune: Alignment) {
     this._data.alignment = tune;
   }
 }
