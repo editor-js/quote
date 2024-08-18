@@ -141,6 +141,11 @@ export default class Quote implements BlockTool {
    * Placeholder for Quote Tool
    */
   private _quotePlaceholder: string;
+
+  /**
+   * Current quote element
+   */
+  private _quoteElement: HTMLElement | null;
   /**
    * Caption placeholder for Quote Tool
    */
@@ -190,6 +195,7 @@ export default class Quote implements BlockTool {
       input: this.api.styles.input,
       caption: "cdx-quote__caption",
     };
+    this._quoteElement = null;
   }
 
   /**
@@ -346,7 +352,7 @@ export default class Quote implements BlockTool {
 
     container.appendChild(quote);
     container.appendChild(caption);
-
+    this._quoteElement = container;
     return container;
   }
 
@@ -410,5 +416,10 @@ export default class Quote implements BlockTool {
    */
   _toggleTune(tune: Alignment) {
     this._data.alignment = tune;
+
+    // Dispatch change if quoteElement already exists
+    if (this._quoteElement) {
+      this.api.blocks.getBlockByElement(this._quoteElement)?.dispatchChange();
+    }
   }
 }
