@@ -41,6 +41,6 @@
   },
   "dependencies": {
     "@codexteam/icons": "^0.3.2",
-    "@editorjs/dom": "^0.0.1"
+    "@editorjs/dom": "^0.0.6"
   }
 }

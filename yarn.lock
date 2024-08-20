@@ -33,22 +33,22 @@
   resolved "https://registry.yarnpkg.com/@codexteam/icons/-/icons-0.3.2.tgz#b7aed0ba7b344e07953101f5476cded570d4f150"
   integrity sha512-P1ep2fHoy0tv4wx85eic+uee5plDnZQ1Qa6gDfv7eHPkCXorMtVqJhzMb75o1izogh6G7380PqmFDXV3bW3Pig==
 
-"@editorjs/dom@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/dom/-/dom-0.0.1.tgz#62297e0b597509598d4829aeaeb4b6a8a59a5d03"
-  integrity sha512-cFTVjsCKUFZHDjG9jFeooqkMchlWjkNbIJjWUYEA4DeK8VOc6VYiW3GJCjw4J2BXSkzwm3T4O7r6ra2dZxTx2w==
+"@editorjs/dom@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@editorjs/dom/-/dom-0.0.6.tgz#b35a6b4204305f3b1bc3eb7b4c4dec21a4070e3d"
+  integrity sha512-bPwkRV2O7mTB7XoGpf0/anSAOENbwXu2EcOT1M3/lvM9XJ7YfvOgyeSmEZRqUyw5RYBr94yc2fQw++vHMINeqA==
   dependencies:
-    "@editorjs/helpers" "workspace:*"
+    "@editorjs/helpers" "0.0.5"
 
 "@editorjs/editorjs@^2.29.1":
   version "2.30.5"
   resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.30.5.tgz#c1a6fc2b99f567a0271408c0edd51d3da21b4534"
   integrity sha512-sE7m/UPbuf+nSGjv9cmWggFsfvtYlgEX7PCby2lZWvOsOLbRxuLT+ZYlwbWshD+8BFJwiAmBj9e+ScZcOjCzeg==
 
-"@editorjs/helpers@workspace:*":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@editorjs/helpers/-/helpers-0.0.1.tgz#580eadca9b3a646d7466434579cee90ebebdc0a8"
-  integrity sha512-oEp8pqqvvx1Yut4KyvEoYKroAe5TFRNdXOPGIerleIB/6HA/n5hvARa8HRNQtOlMJH40vcRTT3Z+74J3NjlQlQ==
+"@editorjs/helpers@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@editorjs/helpers/-/helpers-0.0.5.tgz#db93402027c12eb4750b9e5ae7752249b1c7c703"
+  integrity sha512-9xP+/Ai4NR+bBPKDt6jYnhkYs8OUDGGIMUKikyck8yiJV35/vpZ7WkowOy5sCZcyu7+lI5bkFXNoDn5jes0diA==
 
 "@esbuild/android-arm64@0.18.20":
   version "0.18.20"
