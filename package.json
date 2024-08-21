@@ -1,6 +1,6 @@
 {
   "name": "@editorjs/quote",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "keywords": [
     "codex editor",
     "quote",
@@ -41,6 +41,6 @@
   },
   "dependencies": {
     "@codexteam/icons": "^0.3.2",
-    "@editorjs/dom": "^0.0.1"
+    "@editorjs/dom": "^0.0.5"
   }
 }
