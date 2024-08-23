@@ -5,7 +5,7 @@ import "./index.css";
 
 import { IconAlignLeft, IconAlignCenter, IconQuote } from "@codexteam/icons";
 import { make } from "@editorjs/dom";
-import type { API, BlockTool, ToolConfig } from "@editorjs/editorjs";
+import type { API, BlockAPI, BlockTool, ToolConfig } from "@editorjs/editorjs";
 import { MenuConfig } from "@editorjs/editorjs/types/tools";
 
 /**
@@ -63,6 +63,7 @@ export interface QuoteData {
  * @property {QuoteConfig} config - The configuration for the quote.
  * @property {API} api - The Editor.js API.
  * @property {boolean} readOnly - Is quote is read-only.
+ * @property {BlockAPI} block - BlockAPI object of Quote.
  */
 interface QuoteParams {
   /**
@@ -81,6 +82,10 @@ interface QuoteParams {
    * Is quote read-only.
    */
   readOnly: boolean;
+  /**
+   * BlockAPI object of Quote.
+   */
+  block: BlockAPI;
 }
 
 /**
@@ -141,6 +146,11 @@ export default class Quote implements BlockTool {
    * Placeholder for Quote Tool
    */
   private _quotePlaceholder: string;
+
+  /**
+   * Current quote element
+   */
+  private _block: BlockAPI;
   /**
    * Caption placeholder for Quote Tool
    */
@@ -163,7 +173,7 @@ export default class Quote implements BlockTool {
    * @param {API} params.api - editor.js api
    * @param {boolean} params.readOnly - read only mode flag
    */
-  constructor({ data, config, api, readOnly }: QuoteParams) {
+  constructor({ data, config, api, readOnly, block }: QuoteParams) {
     const { DEFAULT_ALIGNMENT } = Quote;
 
     this.api = api;
@@ -190,6 +200,7 @@ export default class Quote implements BlockTool {
       input: this.api.styles.input,
       caption: "cdx-quote__caption",
     };
+    this._block = block;
   }
 
   /**
@@ -346,7 +357,6 @@ export default class Quote implements BlockTool {
 
     container.appendChild(quote);
     container.appendChild(caption);
-
     return container;
   }
 
@@ -410,5 +420,8 @@ export default class Quote implements BlockTool {
    */
   _toggleTune(tune: Alignment) {
     this._data.alignment = tune;
+
+    // Dispatch change if quoteElement already exists
+      this._block.dispatchChange();
   }
 }
