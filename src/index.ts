@@ -19,17 +19,17 @@ export interface QuoteConfig extends ToolConfig {
   /**
    * Placeholder text to display in the quote's text input.
    */
-  quotePlaceholder: string;
+  quotePlaceholder?: string;
 
   /**
    * Placeholder text to display in the quote's caption input.
    */
-  captionPlaceholder: string;
+  captionPlaceholder?: string;
 
   /**
    * Default alignment for the quote.
    */
-  defaultAlignment: Alignment;
+  defaultAlignment?: Alignment;
 }
 
 /**
@@ -73,7 +73,7 @@ interface QuoteParams {
   /**
    * Quote tool configuration
    */
-  config: QuoteConfig;
+  config?: QuoteConfig;
   /**
    * Editor.js API
    */
@@ -180,9 +180,9 @@ export default class Quote implements BlockTool {
     this.readOnly = readOnly;
 
     this._quotePlaceholder =
-      config.quotePlaceholder || Quote.DEFAULT_QUOTE_PLACEHOLDER;
+      config?.quotePlaceholder || Quote.DEFAULT_QUOTE_PLACEHOLDER;
     this._captionPlaceholder =
-      config.captionPlaceholder || Quote.DEFAULT_CAPTION_PLACEHOLDER;
+      config?.captionPlaceholder || Quote.DEFAULT_CAPTION_PLACEHOLDER;
 
     this._data = {
       text: data.text || "",
@@ -190,7 +190,7 @@ export default class Quote implements BlockTool {
       alignment:
         (Object.values(Alignment).includes(data.alignment as Alignment) &&
           data.alignment) ||
-        config.defaultAlignment ||
+        config?.defaultAlignment ||
         DEFAULT_ALIGNMENT,
     };
     this._CSS = {
