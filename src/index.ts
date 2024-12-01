@@ -1,19 +1,12 @@
-/**
- * Build styles
- */
-import "./index.css";
+import './index.css';
 
-import { IconAlignLeft, IconAlignCenter, IconQuote } from "@codexteam/icons";
-import { make } from "@editorjs/dom";
-import type { API, BlockAPI, BlockTool, ToolConfig } from "@editorjs/editorjs";
-import { MenuConfig } from "@editorjs/editorjs/types/tools";
+import { IconAlignLeft, IconAlignCenter, IconQuote } from '@codexteam/icons';
+import { make } from '@editorjs/dom';
+import type { API, BlockAPI, BlockTool, ToolConfig, SanitizerConfig, ConversionConfig } from '@editorjs/editorjs';
+import type { MenuConfig } from '@editorjs/editorjs/types/tools';
 
 /**
- * @typedef {object} QuoteConfig
- * @description Quote Tool`s initial configuration
- * @property {string} quotePlaceholder - placeholder to show in quote`s text input
- * @property {string} captionPlaceholder - placeholder to show in quote`s caption input
- * @property {'center'|'left'} defaultAlignment - alignment to use as default
+ * Quote Tool`s initial configuration
  */
 export interface QuoteConfig extends ToolConfig {
   /**
@@ -33,11 +26,7 @@ export interface QuoteConfig extends ToolConfig {
 }
 
 /**
- * @typedef {object} QuoteData
- * @description Quote Tool`s input and output data
- * @property {string} text - quote`s text
- * @property {string} caption - quote`s caption
- * @property {'center'|'left'} alignment - quote`s alignment
+ * Quote Tool`s input and output data
  */
 export interface QuoteData {
   /**
@@ -57,13 +46,7 @@ export interface QuoteData {
 }
 
 /**
- * @typedef {object} QuoteParams
- * @description Constructor params for the Quote tool, use to pass initial data and settings
- * @property {QuoteData} data - Preload data for the quote.
- * @property {QuoteConfig} config - The configuration for the quote.
- * @property {API} api - The Editor.js API.
- * @property {boolean} readOnly - Is quote is read-only.
- * @property {BlockAPI} block - BlockAPI object of Quote.
+ * Constructor params for the Quote tool, use to pass initial data and settings
  */
 interface QuoteParams {
   /**
@@ -89,10 +72,7 @@ interface QuoteParams {
 }
 
 /**
- * @typedef {object} QuoteCSS
- * @description CSS classes names
- * @property {string} block - Editor.js CSS Class for block
- * @property {string} wrapper - Quote CSS Class
+ * CSS classes names
  */
 interface QuoteCSS {
   /**
@@ -118,60 +98,64 @@ interface QuoteCSS {
 }
 
 /**
- * @typedef {Enum} Alignment
- * @description Enum for Quote Alignment
+ * Enum for Quote Alignment
  */
 enum Alignment {
-  Left = "left",
-  Center = "center",
+  /**
+   * Left alignment
+   */
+  Left = 'left',
+  /**
+   * Center alignment
+   */
+  Center = 'center'
 }
 
 /**
- * @class Quote
- * @classdesc Quote Tool for Editor.js
- * @property {QuoteData} data - Tool`s input and output data
- * @propert {API} api - Editor.js API instance
+ * Quote Tool for Editor.js
  */
 export default class Quote implements BlockTool {
   /**
    * The Editor.js API
    */
-  api: API;
+  private api: API;
   /**
    * Is Quote Tool read-only
    */
-  readOnly: boolean;
+  private readOnly: boolean;
 
   /**
    * Placeholder for Quote Tool
    */
-  private _quotePlaceholder: string;
+  private quotePlaceholder: string;
 
   /**
    * Current quote element
    */
-  private _block: BlockAPI;
+  private block: BlockAPI;
+
   /**
    * Caption placeholder for Quote Tool
    */
-  private _captionPlaceholder: string;
+  private captionPlaceholder: string;
+
   /**
-   * Quote's data
+   * Quote Tool's data
    */
-  private _data: QuoteData;
+  private data: QuoteData;
+
   /**
    * Quote Tool's CSS classes
    */
-  private _CSS: QuoteCSS;
+  private css: QuoteCSS;
 
   /**
    * Render plugin`s main Element and fill it with saved data
-   *
-   * @param {object} params - constructor params
-   * @param {QuoteData} params.data - previously saved data
-   * @param {QuoteConfig} params.config - user config for Tool
-   * @param {API} params.api - editor.js api
-   * @param {boolean} params.readOnly - read only mode flag
+   * @param params - Quote Tool constructor params
+   * @param params.data - previously saved data
+   * @param params.config - user config for Tool
+   * @param params.api - editor.js api
+   * @param params.readOnly - read only mode flag
    */
   constructor({ data, config, api, readOnly, block }: QuoteParams) {
     const { DEFAULT_ALIGNMENT } = Quote;
@@ -179,36 +163,33 @@ export default class Quote implements BlockTool {
     this.api = api;
     this.readOnly = readOnly;
 
-    this._quotePlaceholder =
-      config?.quotePlaceholder || Quote.DEFAULT_QUOTE_PLACEHOLDER;
-    this._captionPlaceholder =
-      config?.captionPlaceholder || Quote.DEFAULT_CAPTION_PLACEHOLDER;
+    this.quotePlaceholder
+      = config?.quotePlaceholder ?? Quote.DEFAULT_QUOTE_PLACEHOLDER;
+    this.captionPlaceholder
+      = config?.captionPlaceholder ?? Quote.DEFAULT_CAPTION_PLACEHOLDER;
 
-    this._data = {
-      text: data.text || "",
-      caption: data.caption || "",
-      alignment:
-        (Object.values(Alignment).includes(data.alignment as Alignment) &&
-          data.alignment) ||
-        config?.defaultAlignment ||
-        DEFAULT_ALIGNMENT,
+    this.data = {
+      text: data.text || '',
+      caption: data.caption || '',
+      alignment: Object.values(Alignment).includes(data.alignment)
+        ? data.alignment
+        : config?.defaultAlignment ?? DEFAULT_ALIGNMENT,
     };
-    this._CSS = {
+    this.css = {
       baseClass: this.api.styles.block,
-      wrapper: "cdx-quote",
-      text: "cdx-quote__text",
+      wrapper: 'cdx-quote',
+      text: 'cdx-quote__text',
       input: this.api.styles.input,
-      caption: "cdx-quote__caption",
+      caption: 'cdx-quote__caption',
     };
-    this._block = block;
+    this.block = block;
   }
 
   /**
    * Notify core that read-only mode is supported
-   *
-   * @returns {boolean}
+   * @returns true
    */
-  static get isReadOnlySupported(): boolean {
+  public static get isReadOnlySupported(): boolean {
     return true;
   }
 
@@ -216,81 +197,78 @@ export default class Quote implements BlockTool {
    * Get Tool toolbox settings
    * icon - Tool icon's SVG
    * title - title to show in toolbox
-   *
-   * @returns {{icon: string, title: string}}
+   * @returns icon and title of the toolbox
    */
-  static get toolbox(): { icon: string; title: "Quote" } {
+  public static get toolbox(): {
+    /**
+     * Tool icon's SVG
+     */
+    icon: string;
+    /**
+     * title to show in toolbox
+     */
+    title: 'Quote';
+  } {
     return {
       icon: IconQuote,
-      title: "Quote",
+      title: 'Quote',
     };
   }
 
   /**
    * Empty Quote is not empty Block
-   *
-   * @public
-   * @returns {boolean}
+   * @returns true
    */
-  static get contentless(): boolean {
+  public static get contentless(): boolean {
     return true;
   }
 
   /**
    * Allow to press Enter inside the Quote
-   *
-   * @public
-   * @returns {boolean}
+   * @returns true
    */
-  static get enableLineBreaks(): boolean {
+  public static get enableLineBreaks(): boolean {
     return true;
   }
 
   /**
    * Default placeholder for quote text
-   *
-   * @public
-   * @returns {string}
+   * @returns 'Enter a quote'
    */
-  static get DEFAULT_QUOTE_PLACEHOLDER(): string {
-    return "Enter a quote";
+  public static get DEFAULT_QUOTE_PLACEHOLDER(): string {
+    return 'Enter a quote';
   }
 
   /**
    * Default placeholder for quote caption
-   *
-   * @public
-   * @returns {string}
+   * @returns 'Enter a caption'
    */
-  static get DEFAULT_CAPTION_PLACEHOLDER(): string {
-    return "Enter a caption";
+  public static get DEFAULT_CAPTION_PLACEHOLDER(): string {
+    return 'Enter a caption';
   }
-
 
   /**
    * Default quote alignment
-   *
-   * @public
-   * @returns {string}
+   * @returns Alignment.Left
    */
-  static get DEFAULT_ALIGNMENT(): Alignment {
+  public static get DEFAULT_ALIGNMENT(): Alignment {
     return Alignment.Left;
   }
 
   /**
    * Allow Quote to be converted to/from other blocks
+   * @returns conversion config object
    */
-  static get conversionConfig() {
+  public static get conversionConfig(): ConversionConfig {
     return {
       /**
        * To create Quote data from string, simple fill 'text' property
        */
-      import: "text",
+      import: 'text',
       /**
        * To create string from Quote data, concatenate text and caption
-       *
-       * @param {QuoteData} quoteData
-       * @returns {string}
+       * @param quoteData - Quote data object
+       * @returns string
        */
       export: function (quoteData: QuoteData): string {
         return quoteData.caption
@@ -302,25 +280,32 @@ export default class Quote implements BlockTool {
 
   /**
    * Tool`s styles
-   *
-   * @returns {QuoteCSS}
+   * @returns CSS classes names
    */
-  get CSS(): QuoteCSS {
+  public get CSS(): QuoteCSS {
     return {
       baseClass: this.api.styles.block,
-      wrapper: "cdx-quote",
-      text: "cdx-quote__text",
+      wrapper: 'cdx-quote',
+      text: 'cdx-quote__text',
       input: this.api.styles.input,
-      caption: "cdx-quote__caption",
+      caption: 'cdx-quote__caption',
     };
   }
 
   /**
    * Tool`s settings properties
-   *
-   * @returns {*[]}
+   * @returns settings properties
    */
-  get settings(): { name: Alignment; icon: string }[] {
+  public get settings(): {
+    /**
+     * Alignment name
+     */
+    name: Alignment;
+    /**
+     * Alignment icon
+     */
+    icon: string;
+  }[] {
     return [
       {
         name: Alignment.Left,
@@ -335,51 +320,51 @@ export default class Quote implements BlockTool {
 
   /**
    * Create Quote Tool container with inputs
-   *
-   * @returns {Element}
+   * @returns blockquote DOM element - Quote Tool container
    */
-  render(): HTMLElement {
-    const container = make("blockquote", [
-      this._CSS.baseClass,
-      this._CSS.wrapper,
+  public render(): HTMLElement {
+    const container = make('blockquote', [
+      this.css.baseClass,
+      this.css.wrapper,
     ]);
-    const quote = make("div", [this._CSS.input, this._CSS.text], {
+    const quote = make('div', [this.css.input, this.css.text], {
       contentEditable: !this.readOnly,
-      innerHTML: this._data.text,
+      innerHTML: this.data.text,
     });
-    const caption = make("div", [this._CSS.input, this._CSS.caption], {
+    const caption = make('div', [this.css.input, this.css.caption], {
       contentEditable: !this.readOnly,
-      innerHTML: this._data.caption,
+      innerHTML: this.data.caption,
     });
 
-    quote.dataset.placeholder = this._quotePlaceholder;
-    caption.dataset.placeholder = this._captionPlaceholder;
+    quote.dataset.placeholder = this.quotePlaceholder;
+    caption.dataset.placeholder = this.captionPlaceholder;
 
     container.appendChild(quote);
     container.appendChild(caption);
+
     return container;
   }
 
   /**
    * Extract Quote data from Quote Tool element
-   *
-   * @param {HTMLDivElement} quoteElement - element to save
-   * @returns {QuoteData}
+   * @param quoteElement - Quote DOM element to save
+   * @returns Quote data object
    */
-  save(quoteElement: HTMLDivElement): QuoteData {
-    const text = quoteElement.querySelector(`.${this._CSS.text}`);
-    const caption = quoteElement.querySelector(`.${this._CSS.caption}`);
+  public save(quoteElement: HTMLDivElement): QuoteData {
+    const text = quoteElement.querySelector(`.${this.css.text}`);
+    const caption = quoteElement.querySelector(`.${this.css.caption}`);
 
-    return Object.assign(this._data, {
-      text: text?.innerHTML ?? "",
-      caption: caption?.innerHTML ?? "",
+    return Object.assign(this.data, {
+      text: text?.innerHTML ?? '',
+      caption: caption?.innerHTML ?? '',
     });
   }
 
   /**
    * Sanitizer rules
+   * @returns sanitizer rules
    */
-  static get sanitize() {
+  public static get sanitize(): SanitizerConfig {
     return {
       text: {
         br: true,
@@ -395,33 +380,29 @@ export default class Quote implements BlockTool {
    * Create wrapper for Tool`s settings buttons:
    * 1. Left alignment
    * 2. Center alignment
-   *
-   * @returns {MenuConfig}
-   *
+   * @returns settings menu
    */
-  renderSettings(): HTMLElement | MenuConfig {
-    const capitalize = (str: string) =>
+  public renderSettings(): HTMLElement | MenuConfig {
+    const capitalize = (str: string): string =>
       str ? str[0].toUpperCase() + str.slice(1) : str;
 
-    return this.settings.map((item) => ({
+    return this.settings.map(item => ({
       icon: item.icon,
       label: this.api.i18n.t(`Align ${capitalize(item.name)}`),
       onActivate: () => this._toggleTune(item.name),
-      isActive: this._data.alignment === item.name,
+      isActive: this.data.alignment === item.name,
       closeOnActivate: true,
     }));
   }
 
   /**
    * Toggle quote`s alignment
-   *
-   * @param {string} tune - alignment
-   * @private
+   * @param tune - alignment
    */
-  _toggleTune(tune: Alignment) {
-    this._data.alignment = tune;
+  private _toggleTune(tune: Alignment): void {
+    this.data.alignment = tune;
 
     // Dispatch change if quoteElement already exists
-      this._block.dispatchChange();
+    this.block.dispatchChange();
   }
 }
