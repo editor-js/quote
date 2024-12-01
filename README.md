@@ -19,6 +19,10 @@ Include module at your application
 ```javascript
 import Quote from '@editorjs/quote';
 ```
+OR
+```javascript
+import Quote from "@editorjs/quote";
+```
 
 Optionally, you can load this tool from CDN [JsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/quote).
 
