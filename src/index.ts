@@ -1,6 +1,3 @@
-/**
- * Build styles
- */
 import './index.css';
 
 import { IconAlignLeft, IconAlignCenter, IconQuote } from '@codexteam/icons';
@@ -9,10 +6,7 @@ import type { API, BlockAPI, BlockTool, ToolConfig, SanitizerConfig, ConversionC
 import type { MenuConfig } from '@editorjs/editorjs/types/tools';
 
 /**
- * @description Quote Tool`s initial configuration
- * quotePlaceholder - placeholder to show in quote`s text input
- * captionPlaceholder - placeholder to show in quote`s caption input
- * defaultAlignment - alignment to use as default
+ * Quote Tool`s initial configuration
  */
 export interface QuoteConfig extends ToolConfig {
   /**
@@ -32,10 +26,7 @@ export interface QuoteConfig extends ToolConfig {
 }
 
 /**
- * @description Quote Tool`s input and output data
- * text - quote`s text
- * caption - quote`s caption
- * alignment - quote`s alignment
+ * Quote Tool`s input and output data
  */
 export interface QuoteData {
   /**
@@ -55,12 +46,7 @@ export interface QuoteData {
 }
 
 /**
- * @description Constructor params for the Quote tool, use to pass initial data and settings
- * data - Preload data for the quote.
- * config - The configuration for the quote.
- * api - The Editor.js API.
- * readOnly - Is quote is read-only.
- * block - BlockAPI object of Quote.
+ * Constructor params for the Quote tool, use to pass initial data and settings
  */
 interface QuoteParams {
   /**
@@ -86,9 +72,7 @@ interface QuoteParams {
 }
 
 /**
- * @description CSS classes names
- * block - Editor.js CSS Class for block
- * wrapper - Quote CSS Class
+ * CSS classes names
  */
 interface QuoteCSS {
   /**
@@ -114,7 +98,7 @@ interface QuoteCSS {
 }
 
 /**
- * @description Enum for Quote Alignment
+ * Enum for Quote Alignment
  */
 enum Alignment {
   /**
@@ -128,9 +112,7 @@ enum Alignment {
 }
 
 /**
- * @classdesc Quote Tool for Editor.js
- * data - Tool`s input and output data
- * api - Editor.js API instance
+ * Quote Tool for Editor.js
  */
 export default class Quote implements BlockTool {
   /**
@@ -189,7 +171,9 @@ export default class Quote implements BlockTool {
     this.data = {
       text: data.text || '',
       caption: data.caption || '',
-      alignment: Object.values(Alignment).includes(data.alignment) ? data.alignment : ((config?.defaultAlignment) != null) ? config.defaultAlignment : DEFAULT_ALIGNMENT,
+      alignment: Object.values(Alignment).includes(data.alignment)
+        ? data.alignment
+        : config?.defaultAlignment ?? DEFAULT_ALIGNMENT,
     };
     this.css = {
       baseClass: this.api.styles.block,
