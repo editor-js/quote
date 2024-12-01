@@ -4,7 +4,7 @@
 
 Provides Quote Blocks for the [Editor.js](https://editorjs.io).
 
-![](https://capella.pics/017dca46-6869-40cb-93a0-994416576e33.jpg)
+![](assets/68747470733a2f2f636170656c6c612e706963732f30313764636134362d363836392d343063622d393361302d3939343431363537366533332e6a7067.jpeg)
 
 ## Installation
 
@@ -29,12 +29,12 @@ Add a new Tool to the `tools` property of the Editor.js initial config.
 ```javascript
 var editor = EditorJS({
   ...
-  
+
   tools: {
     ...
     quote: Quote,
   },
-  
+
   ...
 });
 ```
@@ -44,7 +44,7 @@ Or init Quote Tool with additional settings
 ```javascript
 var editor = EditorJS({
   ...
-  
+
   tools: {
     ...
     quote: {
@@ -57,7 +57,7 @@ var editor = EditorJS({
       },
     },
   },
-  
+
   ...
 });
 ```
