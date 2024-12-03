@@ -164,9 +164,9 @@ export default class Quote implements BlockTool {
     this.readOnly = readOnly;
 
     this.quotePlaceholder
-      = config?.quotePlaceholder ?? Quote.DEFAULT_QUOTE_PLACEHOLDER;
+      = api.i18n.t(config?.quotePlaceholder ?? Quote.DEFAULT_QUOTE_PLACEHOLDER);
     this.captionPlaceholder
-      = config?.captionPlaceholder ?? Quote.DEFAULT_CAPTION_PLACEHOLDER;
+      = api.i18n.t(config?.captionPlaceholder ?? Quote.DEFAULT_CAPTION_PLACEHOLDER);
 
     this.data = {
       text: data.text || '',
